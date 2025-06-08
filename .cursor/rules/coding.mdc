@@ -1,0 +1,83 @@
+---
+description:
+globs: *.py
+alwaysApply: false
+---
+# Coding rules
+
+- Specify explicit types for all variables, functions, and objects.
+- Use try...except blocks as appropriate to handle exceptions and log error information.
+- Adhere to SOLID Principles and GRASP Principles.
+
+## SOLID Principles
+
+### Single Responsibility Principle
+
+- A class should have only one responsibility, and there should be only one reason for a class to change.
+
+### Open-Closed Principle
+
+- Classes should be open for extension but closed for modification.
+
+### Liskov Substitution Principle
+
+- If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any desirable properties.
+
+### Interface Segregation Principle
+
+- Clients should not be forced to depend on methods they do not use.
+
+### Dependency Inversion Principle
+
+- High-level modules should not depend on low-level modules. Both should depend on abstractions.
+- Abstractions should not depend on details. Details should depend on abstractions.
+
+## GRASP Principles
+
+### Information Expert
+
+- Assign responsibility to the class that has the information needed to fulfill it.
+- Place responsibility on the class with the most information required to fulfill it.
+
+### Creator
+
+- Assign class B the responsibility to create object A if one of the following applies:
+  - B contains or aggregates A
+  - B records A
+  - B closely uses A
+  - B has initializing information for A
+
+### Controller
+
+- Use a controller object (non-UI class) to handle system events.
+- The controller should delegate work to other objects rather than doing it itself.
+
+### Indirection
+
+- Assign responsibility to an intermediate object to mediate between components.
+- This reduces direct coupling between components.
+
+### Low Coupling
+
+- Reduce dependencies between classes.
+- Aim for lower impact of changes and higher reuse potential.
+
+### High Cohesion
+
+- Keep classes focused on a specific, related set of responsibilities.
+- Avoid classes with too many unrelated responsibilities.
+
+### Polymorphism
+
+- Use polymorphic operations for behaviors that vary by type instead of explicit type checking.
+- Assign responsibility for varying behavior to the types for which the behavior varies.
+
+### Protected Variations
+
+- Identify points of predicted variation and create stable interfaces around them.
+- Protect elements from changes in other elements.
+
+### Pure Fabrication
+
+- Create service classes that don't represent domain concepts when needed for low coupling and high cohesion.
+- Use when solutions provided by other patterns don't achieve desired coupling/cohesion.

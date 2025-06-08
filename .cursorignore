@@ -1,0 +1,23 @@
+# environment
+.env
+
+# git
+.git
+
+# license
+LICENSE
+
+# macOS-specific files
+.DS_Store
+
+# mypy
+**/.mypy_cache
+
+# python
+**/__pycache__
+
+# uv
+uv.lock
+
+# vscode
+.vscode
