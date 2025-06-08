@@ -3,7 +3,7 @@ import datetime
 import aiosqlite
 
 from src.suisei.env import TIMEZONE
-from src.suisei.infrastructure.db.dao._base import BaseDAO
+from src.suisei.infrastructure.db.dao.base import BaseDAO
 
 
 class AccessLevelDAO(BaseDAO):
@@ -36,8 +36,8 @@ class AccessLevelDAO(BaseDAO):
                 id               INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id          INTEGER NOT NULL,
                 access_level     TEXT_NOT_NULL,
-                enabled_at       DATE NOT NULL,
-                disabled_at      DATE DEFAULT NULL
+                granted_at       DATE NOT NULL,
+                revoked_at       DATE DEFAULT NULL
             );
             """
             await conn.execute(query)
@@ -45,21 +45,21 @@ class AccessLevelDAO(BaseDAO):
         finally:
             await conn.close()
 
-    async def enable(self, user_id: int, access_level: str) -> None:
-        """Enable a new access level for a user.
+    async def grant(self, user_id: int, access_level: str) -> None:
+        """Grant a new access level for a user.
 
         Parameters
         ----------
         user_id : int
-            The ID of the user to enable the access level for.
+            The ID of the user to grant the access level for.
         access_level : str
-            The access level to enable.
+            The access level to grant.
         """
         conn = await aiosqlite.connect(super().DB_NAME)
         date = datetime.datetime.now(TIMEZONE).date()
         try:
             query = """
-            INSERT INTO access_level (user_id, access_level, enabled_at)
+            INSERT INTO access_level (user_id, access_level, granted_at)
             VALUES (?, ?, ?);
             """
             await conn.execute(query, (user_id, access_level, date))
@@ -84,7 +84,7 @@ class AccessLevelDAO(BaseDAO):
         try:
             query = """
             SELECT user_id FROM access_level WHERE access_level = ?
-            AND disabled_at IS NULL;
+            AND revoked_at IS NULL;
             """
             cursor = await conn.execute(query, (access_level,))
             result = await cursor.fetchall()
@@ -92,21 +92,21 @@ class AccessLevelDAO(BaseDAO):
         finally:
             await conn.close()
 
-    async def disable(self, user_id: int, access_level: str) -> None:
-        """Disable an existing access level for a user.
+    async def revoke(self, user_id: int, access_level: str) -> None:
+        """Revoke an existing access level for a user.
 
         Parameters
         ----------
         user_id : int
-            The ID of the user to disable the access level for.
+            The ID of the user to revoke the access level for.
         access_level : str
-            The access level to disable.
+            The access level to revoke.
         """
         conn = await aiosqlite.connect(super().DB_NAME)
         date = datetime.datetime.now(TIMEZONE).date()
         try:
             query = """
-            UPDATE access_level SET disabled_at = ? WHERE user_id = ?
+            UPDATE access_level SET revoked_at = ? WHERE user_id = ?
             AND access_level = ?;
             """
             await conn.execute(query, (date, user_id, access_level))

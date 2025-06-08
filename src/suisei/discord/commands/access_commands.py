@@ -85,9 +85,9 @@ class AccessLevelGrantSelector(Select):
         """
         chosen = self.values[0]  # "advanced" or "blocked"
         if chosen == "advanced":
-            await access_dao.enable(user_id=self.user_id, access_level="advanced")
+            await access_dao.grant(user_id=self.user_id, access_level="advanced")
         elif chosen == "blocked":
-            await access_dao.enable(user_id=self.user_id, access_level="blocked")
+            await access_dao.grant(user_id=self.user_id, access_level="blocked")
 
         await interaction.response.send_message(
             f"Access level `{chosen}` has been granted to the user (ID: `{self.user_id}`)",
@@ -101,15 +101,15 @@ class AccessLevelGrantSelector(Select):
 
 
 class AccessLevelRevokeSelector(Select):
-    """Discord UI selector for disabling access levels for users.
+    """Discord UI selector for revoking access levels for users.
 
     This class creates a dropdown menu that allows administrators to
-    select access levels ('advanced' or 'blocked') to disable for a user.
+    select access levels ('advanced' or 'blocked') to revoke for a user.
 
     Parameters
     ----------
     user_id : int
-        The Discord user ID to disable access level for.
+        The Discord user ID to revoke access level for.
     options : list[SelectOption]
         List of SelectOption objects representing available access levels.
     """
@@ -124,7 +124,7 @@ class AccessLevelRevokeSelector(Select):
         )
 
     async def callback(self, interaction: Interaction) -> None:
-        """Handle the user's selection of access level to disable.
+        """Handle the user's selection of access level to revoke.
 
         Parameters
         ----------
@@ -133,14 +133,14 @@ class AccessLevelRevokeSelector(Select):
 
         Notes
         -----
-        This callback disables the selected access level for the user in the database
+        This callback revokes the selected access level for the user in the database
         and sends a confirmation message.
         """
         chosen = self.values[0]  # "advanced" or "blocked"
         if chosen == "advanced":
-            await access_dao.disable(user_id=self.user_id, access_level="advanced")
+            await access_dao.revoke(user_id=self.user_id, access_level="advanced")
         elif chosen == "blocked":
-            await access_dao.disable(user_id=self.user_id, access_level="blocked")
+            await access_dao.revoke(user_id=self.user_id, access_level="blocked")
 
         await interaction.response.send_message(
             f"Access level `{chosen}` has been revoked from the user (ID: `{self.user_id}`)",
