@@ -26,6 +26,7 @@ def _parse_args_and_setup_logging() -> Logger:
     args = parser.parse_args()
 
     # ignore reason: mypy cannot correctly infer this type
-    return setup_logger(args.log) # type: ignore
+    return setup_logger(args.log)  # type: ignore
+
 
 logger = _parse_args_and_setup_logging()

@@ -75,8 +75,8 @@ def setup_logger(log_level: str) -> logging.Logger:
         # [2025-01-27 00:13:26 - <filename>:102 - DEBUG] <message>
         format="[%(asctime)s - %(filename)s:%(lineno)d - %(levelname)s] %(message)s",
         handlers=[
-            file_handler,   # output logs to a .log
-            stream_handler, # output logs to console
+            file_handler,  # output logs to a .log
+            stream_handler,  # output logs to console
         ],
     )
     logger = logging.getLogger(__name__)
