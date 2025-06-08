@@ -62,8 +62,7 @@ def handle_anthropic_service_errors(
             }
             msg = f"{error_messages.get(type(err), 'Anthropic API error')}: {err!s}"
             logger.exception(msg)
-        # ignore reason: catch all unexpected exceptions during API calls
-        except Exception as err:  # noqa: BLE001
+        except Exception as err:
             msg = f"Unexpected error occurred: {err!s}"
             logger.exception(msg)
 
@@ -125,8 +124,7 @@ def handle_openai_service_errors(
             }
             msg = f"{error_messages.get(type(err), 'OpenAI API error')}: {err!s}"
             logger.exception(msg)
-        # ignore reason: catch all unexpected exceptions during API calls
-        except Exception as err:  # noqa: BLE001
+        except Exception as err:
             msg = f"Unexpected error occurred: {err!s}"
             logger.exception(msg)
 
