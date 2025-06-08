@@ -12,6 +12,8 @@ if TYPE_CHECKING:
     from pytz import _UTCclass
     from pytz.tzinfo import DstTzInfo, StaticTzInfo
 
+load_dotenv()
+
 # ========== These variables are system environment variables ==========
 
 ANTHROPIC_API_KEY: str = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -25,8 +27,6 @@ if not OPENAI_API_KEY:
 DISCORD_BOT_TOKEN: str = os.environ["DISCORD_BOT_TOKEN"]
 
 # ========== Environment variables that defined in .env file ==========
-
-load_dotenv()
 
 ADMIN_USER_IDS: list[int] = [
     int(id_str) for id_str in os.environ["ADMIN_USER_IDS"].split(",") if id_str.strip()
