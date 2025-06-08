@@ -5,8 +5,9 @@ from typing import Literal, cast
 from discord import Message as DiscordMessage
 from discord import MessageType
 
+from src.suisei.env import BOT_NAME
+
 ChatRole = Literal["assistant", "developer", "user"]
-BOT_NAME = "suisei"  # Internal bot name used in the codebase
 
 
 class ChatMessage:
