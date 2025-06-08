@@ -52,7 +52,7 @@ This application requires a `.env` file for configuration. Follow these steps:
 Finally, make sure all values in the `.env` file and `.prompt.yml` file are filled in correctly, and then execute the following:
 
 ```
-python -m src.comet --log <log_level>
+python -m src.suisei --log <log_level>
 ```
 
 **Note**: The `--log <log_level>` parameter is optional and allows you to set the log level. Available values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` (case-insensitive). If not specified, `INFO` will be used as default.
