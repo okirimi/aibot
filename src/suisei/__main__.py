@@ -4,7 +4,7 @@ import signal
 from collections.abc import Generator
 from contextlib import contextmanager
 
-from src.suisei.cli import parse_args_and_setup_logging
+from src.suisei.cli import logger
 from src.suisei.discord.client import BotClient
 from src.suisei.discord.commands import *
 from src.suisei.discord.event import *
@@ -38,8 +38,6 @@ def ignore_signals(signals: list[signal.Signals]) -> Generator[None, None, None]
 
 async def main() -> None:
     """Entry point for the 'SuiseiBot'."""
-    logger = parse_args_and_setup_logging()
-
     # Initialize database tables
     await AccessLevelDAO().create_table()
 
