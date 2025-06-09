@@ -40,11 +40,18 @@ class BotClient(Client):
 
     async def setup_hook(self) -> None:
         """Set up the bot before connecting to the Discord gateway."""
+        logger.debug("Setting up bot...")
+        logger.debug("Registered commands: %s", [cmd.name for cmd in self.tree.get_commands()])
         await self.tree.sync()
+        logger.info("Command tree synchronized")
 
     async def on_ready(self) -> None:
         """Event handler called when the bot is ready."""
         logger.info("%s is ready!!", self.user)
+        logger.debug(
+            "Available slash commands: %s",
+            [cmd.name for cmd in self.tree.get_commands()],
+        )
 
     async def cleanup_hook(self) -> None:
         """Clean up resources when the bot is shutting down."""

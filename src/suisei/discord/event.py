@@ -1,10 +1,12 @@
-from discord import Interaction, app_commands
+from discord import app_commands
 
 from src.suisei.discord.client import BotClient
 
 _client: BotClient = BotClient.get_instance()
 
+# 別のハンドラーも追加予定
 
+# 後の利用可能性のために残しておく
 _ERROR_MESSAGES = {
     app_commands.CheckFailure: "**CheckFailure** - コマンドの実行条件を満たしていません",
     app_commands.CommandInvokeError: (
@@ -22,24 +24,3 @@ _ERROR_MESSAGES = {
     ),
     app_commands.TransformerError: "**TransformerError** - 引数の変換に失敗しました",
 }
-
-
-@_client.tree.error
-async def on_app_command_error(
-    interaction: Interaction,
-    err: app_commands.AppCommandError,
-) -> None:
-    """Event handler for app command errors.
-
-    Parameters
-    ----------
-    interaction : Interaction
-        The interaction that caused the error.
-    err : app_commands.AppCommandError
-        The error that occurred.
-    """
-    if isinstance(err, type(_ERROR_MESSAGES)):
-        await interaction.response.send_message(
-            _ERROR_MESSAGES[type(err)],
-            ephemeral=True,
-        )

@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pytz
 from dotenv import load_dotenv
 
-from src.suisei.utils.logger import logger
+from src.suisei.cli import logger
 
 if TYPE_CHECKING:
     from pytz import _UTCclass
@@ -44,6 +44,8 @@ FIXPY_MAX_TOKENS: int = int(os.environ["FIXPY_MAX_TOKENS"])
 FIXPY_MODEL: str = os.environ["FIXPY_MODEL"]
 FIXPY_TEMPERATURE: float = float(os.environ["FIXPY_TEMPERATURE"])
 FIXPY_TOP_P: float = float(os.environ["FIXPY_TOP_P"])
+
+MAX_CHARS_PER_MESSAGE: int = int(os.environ["MAX_CHARS_PER_MESSAGE"])
 
 _tz: str = os.environ["TIMEZONE"]
 TIMEZONE: _UTCclass | DstTzInfo | StaticTzInfo = pytz.timezone(_tz)

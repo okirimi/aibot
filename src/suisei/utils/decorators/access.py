@@ -7,7 +7,6 @@ from src.suisei.env import ADMIN_USER_IDS, AUTHORIZED_SERVER_IDS
 from src.suisei.infrastructure.db.dao.access_dao import AccessLevelDAO
 
 _T = TypeVar("_T")
-access_dao: AccessLevelDAO = AccessLevelDAO()
 
 
 def is_authorized_server() -> Callable[[_T], _T]:
@@ -53,7 +52,7 @@ def is_advanced_user() -> Callable[[_T], _T]:
     """
 
     async def predicate(interaction: Interaction) -> bool:
-        advanced_user_ids = await access_dao.fetch_user_ids_by_access_level(
+        advanced_user_ids = await AccessLevelDAO().fetch_user_ids_by_access_level(
             access_level="advanced",
         )
         return interaction.user.id in advanced_user_ids
@@ -72,7 +71,7 @@ def is_not_blocked_user() -> Callable[[_T], _T]:
     """
 
     async def predicate(interaction: Interaction) -> bool:
-        blocked_user_ids = await access_dao.fetch_user_ids_by_access_level(
+        blocked_user_ids = await AccessLevelDAO().fetch_user_ids_by_access_level(
             access_level="blocked",
         )
         return interaction.user.id not in blocked_user_ids

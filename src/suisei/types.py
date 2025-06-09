@@ -4,6 +4,23 @@ from discord import app_commands
 class ClaudeParams:
     """Parameters for Claude model."""
 
+    def __init__(
+        self,
+        model: app_commands.Choice[int] | str | None = None,
+        max_tokens: int | None = None,
+        temperature: float | None = None,
+        top_p: float | None = None,
+    ) -> None:
+        """Initialize Claude parameters."""
+        if model is not None:
+            self.model = model
+        if max_tokens is not None:
+            self.max_tokens = max_tokens
+        if temperature is not None:
+            self.temperature = temperature
+        if top_p is not None:
+            self.top_p = top_p
+
     @property
     def model(self) -> app_commands.Choice[int] | str:
         """Get the model parameter."""
@@ -56,6 +73,23 @@ class ClaudeParams:
 
 class GPTParams:
     """Parameters for GPT model."""
+
+    def __init__(
+        self,
+        model: app_commands.Choice[int] | str | None = None,
+        max_tokens: int | None = None,
+        temperature: float | None = None,
+        top_p: float | None = None,
+    ) -> None:
+        """Initialize GPT parameters."""
+        if model is not None:
+            self.model = model
+        if max_tokens is not None:
+            self.max_tokens = max_tokens
+        if temperature is not None:
+            self.temperature = temperature
+        if top_p is not None:
+            self.top_p = top_p
 
     @property
     def model(self) -> app_commands.Choice[int] | str:
