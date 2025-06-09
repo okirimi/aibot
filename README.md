@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/badge/License-BSD--3--Clause-orange.svg?style=flat&labelColor=24292e)
 
 > [!CAUTION]
-> This project is currently under development.
+> Currently, the application only supports running in a local environment. If you plan to run it in a server environment, make sure to manage the .env file or environment variables appropriately.
 
 ## Getting Started
 
@@ -41,11 +41,28 @@ This application requires a `.env` file for configuration. Follow these steps:
   - Copy the `.env.example` file and rename it to `.env`
   - Fill in all the required values in the `.env` file
 
-**3. Write system prompts**
+**3. Customize system prompts**
 
 > [!IMPORTANT]
-> If you use this bot on public servers or in public contexts, it is strongly recommended to configure the system prompt appropriately.
+> If you use this bot in public contexts or server environments, it is strongly recommended to configure the system prompt appropriately.
 
+**Example**:
+
+Safe System Prompt Design
+- Include explicit instructions to prohibit harmful code or actions
+- Restrict access to sensitive information (e.g., API keys, environment variables)
+- Implement prompt injection protection (e.g., input sanitization and validation)
+
+Multi-User Considerations
+- Strictly isolate user sessions and data
+- Prevent input/output that could affect other users
+
+Resource Management
+- Introduce rate limiting and concurrency controls to avoid overload or abuse
+
+Logging and Privacy
+- Avoid storing personal data in logs; use anonymization or minimal logging
+- Use logs to detect and monitor suspicious behavior (e.g., injection attempts)
 
 ### Run the Bot
 

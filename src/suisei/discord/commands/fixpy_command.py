@@ -15,9 +15,9 @@ from src.suisei.env import (
 )
 from src.suisei.infrastructure.api.anthropic_api import generate_anthropic_response
 from src.suisei.types import ClaudeParams
+from src.suisei.yml import FIXPY_SYSTEM
 
 _client: BotClient = BotClient.get_instance()
-FIXPY_SYSTEM = "実装後削除してください"
 
 
 class CodeModal(Modal):
@@ -52,7 +52,7 @@ class CodeModal(Modal):
 
             if FIXPY_MODEL is None:
                 await interaction.followup.send(
-                    "**ERROR** - No available model.",
+                    "**ERROR** - 利用可能なモデルがありません",
                     ephemeral=True,
                 )
                 return
@@ -66,27 +66,27 @@ class CodeModal(Modal):
 
             message = [ChatMessage(role="user", content=code)]
 
-            response_result = await generate_anthropic_response(
+            response = await generate_anthropic_response(
                 system_prompt=FIXPY_SYSTEM,
                 prompt=message,
                 model_params=params,
             )
 
-            if response_result.result is not None:
+            if response.result is not None:
                 await interaction.followup.send(
-                    f"{response_result.result}",
+                    f"{response.result}",
                     ephemeral=True,
                 )
             else:
                 await interaction.followup.send(
-                    "**ERROR** - Failed to generate response from AI service.",
+                    "**ERROR** - AIサービスからの応答の生成に失敗しました",
                     ephemeral=True,
                 )
         except Exception as err:
             msg = f"Error processing fixpy command request: {err!s}"
             logger.exception(msg)
             await interaction.followup.send(
-                "**ERROR** - Error occurred in fixpy command.",
+                "**ERROR** - fixpyコマンドの処理中にエラーが発生しました",
                 ephemeral=True,
             )
 
@@ -108,7 +108,7 @@ async def fixpy_command(
 
         if FIXPY_MODEL is None:
             await interaction.response.send_message(
-                "**ERROR** - No available model.",
+                "**ERROR** - 利用可能なモデルがありません",
                 ephemeral=True,
             )
             return
@@ -121,6 +121,6 @@ async def fixpy_command(
         msg = f"Error showing fixpy modal: {err!s}"
         logger.exception(msg)
         await interaction.response.send_message(
-            "**ERROR** - Error occurred while executing the command.",
+            "**ERROR** - コマンドの実行中にエラーが発生しました",
             ephemeral=True,
         )

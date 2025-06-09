@@ -40,6 +40,11 @@ BOT_NAME: str = os.environ["BOT_NAME"]
 
 DB_NAME: str = os.environ["DB_NAME"]
 
+CHAT_MAX_TOKENS: int = int(os.environ["CHAT_MAX_TOKENS"])
+CHAT_MODEL: str = os.environ["CHAT_MODEL"]
+CHAT_TEMPERATURE: float = float(os.environ["CHAT_TEMPERATURE"])
+CHAT_TOP_P: float = float(os.environ["CHAT_TOP_P"])
+
 FIXPY_MAX_TOKENS: int = int(os.environ["FIXPY_MAX_TOKENS"])
 FIXPY_MODEL: str = os.environ["FIXPY_MODEL"]
 FIXPY_TEMPERATURE: float = float(os.environ["FIXPY_TEMPERATURE"])
