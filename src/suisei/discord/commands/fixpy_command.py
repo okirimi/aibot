@@ -15,9 +15,9 @@ from src.suisei.env import (
 )
 from src.suisei.infrastructure.api.anthropic_api import generate_anthropic_response
 from src.suisei.types import ClaudeParams
+from src.suisei.yml import FIXPY_SYSTEM
 
 _client: BotClient = BotClient.get_instance()
-FIXPY_SYSTEM = "実装後削除してください"
 
 
 class CodeModal(Modal):
