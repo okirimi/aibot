@@ -16,6 +16,9 @@ LICENSE
 # python
 **/__pycache__
 
+# ruff
+**/.ruff_cache
+
 # uv
 uv.lock
 

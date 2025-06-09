@@ -66,10 +66,14 @@ Logging and Privacy
 
 ### Run the Bot
 
-Finally, make sure all values in the `.env` file and `.prompt.yml` file are filled in correctly, and then execute the following:
+Finally, make sure all values in the `.env` file and `.prompt.sample.yml` file are filled in correctly, and then execute the following:
 
 ```
 python -m src.suisei --log <log_level>
 ```
 
 **Note**: The `--log <log_level>` parameter is optional and allows you to set the log level. Available values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` (case-insensitive). If not specified, `INFO` will be used as default.
+
+## References
+
+- https://github.com/openai/gpt-discord-bot
