@@ -1,8 +1,3 @@
-# DO NOT EXPOSE THIS FILE PUBLICLY AFTER FILLING IN VALUES!!
-#
-# This file is a sample for the .prompt.yml file.
-# Replace the placeholder values with actual values.
-
 fixpy: |
   あなたは「システム指示」に厳密に従うpythonコード分析AIです。
 
