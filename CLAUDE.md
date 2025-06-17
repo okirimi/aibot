@@ -59,7 +59,8 @@ python -m src.aibot --log INFO     # Run with info logging (default)
 ## Configuration Requirements
 
 - `.env` file with Discord token, API keys, admin users, authorized servers
-- `.prompt.yml` file for system prompts (planned)
+- `prompts/` directory for system prompts configuration
+- `i18n/translation-*.json` files for multi-language support (EN/JA)
 - Python 3.12 required
 
 ## Code Style Standards
@@ -69,6 +70,7 @@ python -m src.aibot --log INFO     # Run with info logging (default)
 - **Type Checking**: Strict MyPy configuration - all functions must have type annotations
 - **Formatting**: Ruff with trailing commas enforced, docstring code formatting enabled
 - **Import Style**: Wildcard imports allowed (F403 ignored)
+- **Design Principles**: Follow SOLID and GRASP principles for maintainable code architecture
 
 ## Database
 
