@@ -52,5 +52,7 @@ FIXPY_TOP_P: float = float(os.environ["FIXPY_TOP_P"])
 
 MAX_CHARS_PER_MESSAGE: int = int(os.environ["MAX_CHARS_PER_MESSAGE"])
 
+LANGUAGE: str = os.environ["LANGUAGE"]
+
 _tz: str = os.environ["TIMEZONE"]
 TIMEZONE: _UTCclass | DstTzInfo | StaticTzInfo = pytz.timezone(_tz)

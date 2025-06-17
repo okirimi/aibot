@@ -4,6 +4,7 @@ from discord.ui import Select, View
 from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
+from src.aibot.json import get_text
 from src.aibot.utils.decorators.access import is_admin_user, is_not_blocked_user
 
 _client: BotClient = BotClient.get_instance()
@@ -31,7 +32,7 @@ async def _validate_guild_and_user(interaction: Interaction, user: User) -> tupl
 
     if interaction.guild is None:
         await interaction.response.send_message(
-            "This command can only be used in a guild",
+            get_text("access_control.guild_only_command"),
             ephemeral=True,
         )
         return False, 0
@@ -39,7 +40,7 @@ async def _validate_guild_and_user(interaction: Interaction, user: User) -> tupl
     target_user = interaction.guild.get_member(target_user_id)
     if target_user is None:
         await interaction.response.send_message(
-            "The user does not exist in the guild",
+            get_text("access_control.user_not_in_guild"),
             ephemeral=True,
         )
         return False, 0
@@ -64,7 +65,9 @@ class AccessLevelGrantSelector(Select):
     def __init__(self, user_id: int, options: list[SelectOption]) -> None:
         self.user_id = user_id
         super().__init__(
-            placeholder="Select an access level...",
+            placeholder=get_text(
+                "access_control.select_access_level_placeholder",
+            ),
             min_values=1,
             max_values=1,
             options=options,
@@ -90,7 +93,11 @@ class AccessLevelGrantSelector(Select):
             await access_dao.grant(user_id=self.user_id, access_level="blocked")
 
         await interaction.response.send_message(
-            f"Access level `{chosen}` has been granted to the user (ID: `{self.user_id}`)",
+            get_text(
+                "access_control.access_level_granted",
+                access_level=chosen,
+                user_id=self.user_id,
+            ),
             ephemeral=True,
         )
         logger.info(
@@ -117,7 +124,9 @@ class AccessLevelRevokeSelector(Select):
     def __init__(self, user_id: int, options: list[SelectOption]) -> None:
         self.user_id = user_id
         super().__init__(
-            placeholder="Select an access level...",
+            placeholder=get_text(
+                "access_control.select_access_level_placeholder",
+            ),
             min_values=1,
             max_values=1,
             options=options,
@@ -144,7 +153,11 @@ class AccessLevelRevokeSelector(Select):
 
         if self.user_id not in user_ids_with_access:
             await interaction.response.send_message(
-                f"The user (ID: `{self.user_id}`) does not have the access level `{chosen}`",
+                get_text(
+                    "access_control.user_does_not_have_access_level",
+                    user_id=self.user_id,
+                    access_level=chosen,
+                ),
                 ephemeral=True,
             )
             logger.info(
@@ -161,7 +174,11 @@ class AccessLevelRevokeSelector(Select):
             await access_dao.revoke(user_id=self.user_id, access_level="blocked")
 
         await interaction.response.send_message(
-            f"Access level `{chosen}` has been revoked from the user (ID: `{self.user_id}`)",
+            get_text(
+                "access_control.access_level_revoked",
+                access_level=chosen,
+                user_id=self.user_id,
+            ),
             ephemeral=True,
         )
         logger.info(
@@ -171,7 +188,7 @@ class AccessLevelRevokeSelector(Select):
         )
 
 
-@_client.tree.command(name="grant", description="Grant an access level to the user")
+@_client.tree.command(name="grant", description=get_text("commands.grant.description"))
 @is_admin_user()
 @is_not_blocked_user()
 async def grant_command(interaction: Interaction, user: User) -> None:
@@ -202,13 +219,13 @@ async def grant_command(interaction: Interaction, user: User) -> None:
     view.add_item(select)
 
     await interaction.response.send_message(
-        "Select an access level to grant to the user",
+        get_text("access_control.grant_access_level_message"),
         view=view,
         ephemeral=True,
     )
 
 
-@_client.tree.command(name="check", description="Check the access level of the user")
+@_client.tree.command(name="check", description=get_text("commands.check.description"))
 @is_admin_user()
 @is_not_blocked_user()
 async def check_access_command(interaction: Interaction, user: User) -> None:
@@ -234,29 +251,41 @@ async def check_access_command(interaction: Interaction, user: User) -> None:
 
     if target_user_id in advanced_user_ids and target_user_id in blocked_user_ids:
         await interaction.response.send_message(
-            f"The user (ID: `{target_user_id}`) has the access level `advanced` and `blocked`",
+            get_text(
+                "access_control.user_has_advanced_and_blocked",
+                user_id=target_user_id,
+            ),
             ephemeral=True,
         )
         return
     if target_user_id in advanced_user_ids:
         await interaction.response.send_message(
-            f"The user (ID: `{target_user_id}`) has the access level `advanced`",
+            get_text(
+                "access_control.user_has_advanced",
+                user_id=target_user_id,
+            ),
             ephemeral=True,
         )
         return
     if target_user_id in blocked_user_ids:
         await interaction.response.send_message(
-            f"The user (ID: `{target_user_id}`) has the access level `blocked`",
+            get_text(
+                "access_control.user_has_blocked",
+                user_id=target_user_id,
+            ),
             ephemeral=True,
         )
         return
     await interaction.response.send_message(
-        f"The user (ID: `{target_user_id}`) does not have any access level",
+        get_text(
+            "access_control.user_has_no_access_level",
+            user_id=target_user_id,
+        ),
         ephemeral=True,
     )
 
 
-@_client.tree.command(name="revoke", description="Revoke an access level for the user")
+@_client.tree.command(name="revoke", description=get_text("commands.revoke.description"))
 @is_admin_user()
 @is_not_blocked_user()
 async def revoke_command(interaction: Interaction, user: User) -> None:
@@ -287,7 +316,7 @@ async def revoke_command(interaction: Interaction, user: User) -> None:
     view.add_item(select)
 
     await interaction.response.send_message(
-        "Select an access level to revoke for the user",
+        get_text("access_control.revoke_access_level_message"),
         view=view,
         ephemeral=True,
     )

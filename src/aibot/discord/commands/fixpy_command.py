@@ -14,6 +14,7 @@ from src.aibot.env import (
     FIXPY_TOP_P,
 )
 from src.aibot.infrastructure.api.anthropic_api import generate_anthropic_response
+from src.aibot.json import get_text
 from src.aibot.types import ClaudeParams
 from src.aibot.yml import FIXPY_SYSTEM
 
@@ -27,12 +28,12 @@ class CodeModal(Modal):
 
     def __init__(self) -> None:
         """Initialize the code modal with AI parameters."""
-        super().__init__(title="Pythonバグバスター")
+        super().__init__(title=get_text("fixpy.modal_title"))
 
         self.code_input = TextInput(
-            label="fixpy",
+            label=get_text("fixpy.code_input_label"),
             style=TextStyle.long,
-            placeholder="コードを入力してください",
+            placeholder=get_text("fixpy.code_input_placeholder"),
             required=True,
         )
         self.add_item(self.code_input)
@@ -52,7 +53,7 @@ class CodeModal(Modal):
 
             if FIXPY_MODEL is None:
                 await interaction.followup.send(
-                    "**ERROR** - 利用可能なモデルがありません",
+                    get_text("errors.no_available_model"),
                     ephemeral=True,
                 )
                 return
@@ -79,19 +80,19 @@ class CodeModal(Modal):
                 )
             else:
                 await interaction.followup.send(
-                    "**ERROR** - AIサービスからの応答の生成に失敗しました",
+                    get_text("errors.ai_response_generation_failed"),
                     ephemeral=True,
                 )
         except Exception as err:
             msg = f"Error processing fixpy command request: {err!s}"
             logger.exception(msg)
             await interaction.followup.send(
-                "**ERROR** - fixpyコマンドの処理中にエラーが発生しました",
+                get_text("errors.fixpy_command_processing_error"),
                 ephemeral=True,
             )
 
 
-@_client.tree.command(name="fixpy", description="Pythonコードのバグを特定し修正します")
+@_client.tree.command(name="fixpy", description=get_text("commands.fixpy.description"))
 async def fixpy_command(
     interaction: Interaction,
 ) -> None:
@@ -108,7 +109,7 @@ async def fixpy_command(
 
         if FIXPY_MODEL is None:
             await interaction.response.send_message(
-                "**ERROR** - 利用可能なモデルがありません",
+                get_text("errors.no_available_model"),
                 ephemeral=True,
             )
             return
@@ -121,6 +122,6 @@ async def fixpy_command(
         msg = f"Error showing fixpy modal: {err!s}"
         logger.exception(msg)
         await interaction.response.send_message(
-            "**ERROR** - コマンドの実行中にエラーが発生しました",
+            get_text("errors.fixpy_modal_execution_error"),
             ephemeral=True,
         )
