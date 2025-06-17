@@ -134,9 +134,27 @@ class AccessLevelRevokeSelector(Select):
         Notes
         -----
         This callback revokes the selected access level for the user in the database
-        and sends a confirmation message.
+        and sends a confirmation message. If the user doesn't have the specified
+        access level, it sends an informative message instead.
         """
         chosen = self.values[0]  # "advanced" or "blocked"
+
+        # Check if the user currently has the selected access level
+        user_ids_with_access = await access_dao.fetch_user_ids_by_access_level(chosen)
+
+        if self.user_id not in user_ids_with_access:
+            await interaction.response.send_message(
+                f"The user (ID: `{self.user_id}`) does not have the access level `{chosen}`",
+                ephemeral=True,
+            )
+            logger.info(
+                "Attempted to revoke access level <%s> from user (ID: %s) but they don't have it",
+                chosen,
+                self.user_id,
+            )
+            return
+
+        # User has the access level, proceed with revocation
         if chosen == "advanced":
             await access_dao.revoke(user_id=self.user_id, access_level="advanced")
         elif chosen == "blocked":
