@@ -1,4 +1,4 @@
-from discord import Interaction
+from discord import Interaction, app_commands
 
 from src.aibot.adapters.chat import ChatMessage
 from src.aibot.cli import logger
@@ -19,6 +19,7 @@ _client = BotClient().get_instance()
 
 @_client.tree.command(name="chat", description="AIとシングルターンのチャットを行います")
 @is_not_blocked_user()
+@app_commands.rename(user_msg="message")
 async def chat_command(interaction: Interaction, user_msg: str) -> None:
     """Single-turn chat with the bot.
 
