@@ -1,6 +1,6 @@
 from discord import Client, Intents, app_commands
 
-from src.suisei.cli import logger
+from src.aibot.cli import logger
 
 intents = Intents.default()
 intents.message_content = True

@@ -1,7 +1,7 @@
 import argparse
 from logging import Logger
 
-from src.suisei.utils.logger import setup_logger
+from src.aibot.utils.logger import setup_logger
 
 
 def _parse_args_and_setup_logging() -> Logger:

@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pytz
 from dotenv import load_dotenv
 
-from src.suisei.cli import logger
+from src.aibot.cli import logger
 
 if TYPE_CHECKING:
     from pytz import _UTCclass

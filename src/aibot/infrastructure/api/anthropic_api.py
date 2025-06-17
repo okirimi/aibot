@@ -1,10 +1,10 @@
 import anthropic
 
-from src.suisei.adapters.chat import ChatHistory, ChatMessage
-from src.suisei.adapters.response import ResponseResult, ResponseStatus
-from src.suisei.cli import logger
-from src.suisei.types import ClaudeParams
-from src.suisei.utils.decorators.error import handle_anthropic_service_errors
+from src.aibot.adapters.chat import ChatHistory, ChatMessage
+from src.aibot.adapters.response import ResponseResult, ResponseStatus
+from src.aibot.cli import logger
+from src.aibot.types import ClaudeParams
+from src.aibot.utils.decorators.error import handle_anthropic_service_errors
 
 _client = anthropic.Anthropic()
 

@@ -1,6 +1,6 @@
 import re
 
-from src.suisei.env import DB_NAME
+from src.aibot.env import DB_NAME
 
 
 class BaseDAO:

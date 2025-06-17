@@ -1,4 +1,4 @@
-# Suisei Bot
+# AiBot
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white&style=flat&labelColor=24292e)
 ![License](https://img.shields.io/badge/License-BSD--3--Clause-orange.svg?style=flat&labelColor=24292e)
@@ -16,7 +16,7 @@ The following preparations are required:
   - OpenAI API Key
   - Discord Bot configuration
 
-For detailed information, please refer to [PREREQUISITES.md](https://github.com/okirimi/suisei/blob/main/docs/PREREQUISITES.md).
+For detailed information, please refer to [PREREQUISITES.md](https://github.com/okirimi/aibot/blob/main/docs/PREREQUISITES.md).
 
 ### Set up
 
@@ -24,7 +24,7 @@ For detailed information, please refer to [PREREQUISITES.md](https://github.com/
 
 ```
 # ----- clone repo -----
-git clone https://github.com/okirimi/suisei.git
+git clone https://github.com/okirimi/aibot.git
 
 # ----- install dependencies -----
 # with uv
@@ -69,7 +69,7 @@ Logging and Privacy
 Finally, make sure all values in the `.env` file and `.prompt.sample.yml` file are filled in correctly, and then execute the following:
 
 ```
-python -m src.suisei --log <log_level>
+python -m src.aibot --log <log_level>
 ```
 
 **Note**: The `--log <log_level>` parameter is optional and allows you to set the log level. Available values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` (case-insensitive). If not specified, `INFO` will be used as default.

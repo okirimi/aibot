@@ -1,6 +1,6 @@
 from discord import app_commands
 
-from src.suisei.discord.client import BotClient
+from src.aibot.discord.client import BotClient
 
 _client: BotClient = BotClient.get_instance()
 

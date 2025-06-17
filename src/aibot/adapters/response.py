@@ -2,7 +2,7 @@ from enum import Enum
 
 from discord import Colour, Embed, Thread
 
-from src.suisei.env import MAX_CHARS_PER_MESSAGE
+from src.aibot.env import MAX_CHARS_PER_MESSAGE
 
 
 class ResponseStatus(Enum):

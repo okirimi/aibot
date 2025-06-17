@@ -62,7 +62,7 @@ def setup_logger(log_level: str) -> logging.Logger:
         msg = f"Invalid log level: {log_level}"
         raise TypeError(msg)
 
-    log_file = "./logs/suisei.log"
+    log_file = "./logs/aibot.log"
 
     # create log folder if not exists
     Path("./logs").mkdir(exist_ok=True)

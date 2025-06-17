@@ -4,11 +4,11 @@ import signal
 from collections.abc import Generator
 from contextlib import contextmanager
 
-from src.suisei.cli import logger
-from src.suisei.discord.client import BotClient
-from src.suisei.discord.commands import *
-from src.suisei.discord.event import *
-from src.suisei.infrastructure.db.dao.access_dao import AccessLevelDAO
+from src.aibot.cli import logger
+from src.aibot.discord.client import BotClient
+from src.aibot.discord.commands import *
+from src.aibot.discord.event import *
+from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
 
 
 @contextmanager

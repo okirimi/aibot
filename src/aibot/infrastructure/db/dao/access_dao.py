@@ -2,8 +2,8 @@ import datetime
 
 import aiosqlite
 
-from src.suisei.env import TIMEZONE
-from src.suisei.infrastructure.db.dao.base import BaseDAO
+from src.aibot.env import TIMEZONE
+from src.aibot.infrastructure.db.dao.base import BaseDAO
 
 
 class AccessLevelDAO(BaseDAO):

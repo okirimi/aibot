@@ -3,8 +3,8 @@ from typing import TypeVar
 
 from discord import Interaction, app_commands
 
-from src.suisei.env import ADMIN_USER_IDS, AUTHORIZED_SERVER_IDS
-from src.suisei.infrastructure.db.dao.access_dao import AccessLevelDAO
+from src.aibot.env import ADMIN_USER_IDS, AUTHORIZED_SERVER_IDS
+from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
 
 _T = TypeVar("_T")
 

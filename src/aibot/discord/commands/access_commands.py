@@ -1,10 +1,10 @@
 from discord import Interaction, SelectOption, User
 from discord.ui import Select, View
 
-from src.suisei.cli import logger
-from src.suisei.discord.client import BotClient
-from src.suisei.infrastructure.db.dao.access_dao import AccessLevelDAO
-from src.suisei.utils.decorators.access import is_admin_user, is_not_blocked_user
+from src.aibot.cli import logger
+from src.aibot.discord.client import BotClient
+from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
+from src.aibot.utils.decorators.access import is_admin_user, is_not_blocked_user
 
 _client: BotClient = BotClient.get_instance()
 access_dao = AccessLevelDAO()

@@ -1,18 +1,18 @@
 from discord import Interaction
 
-from src.suisei.adapters.chat import ChatMessage
-from src.suisei.cli import logger
-from src.suisei.discord.client import BotClient
-from src.suisei.env import (
+from src.aibot.adapters.chat import ChatMessage
+from src.aibot.cli import logger
+from src.aibot.discord.client import BotClient
+from src.aibot.env import (
     CHAT_MAX_TOKENS,
     CHAT_MODEL,
     CHAT_TEMPERATURE,
     CHAT_TOP_P,
 )
-from src.suisei.infrastructure.api.openai_api import generate_openai_response
-from src.suisei.types import GPTParams
-from src.suisei.utils.decorators.access import is_not_blocked_user
-from src.suisei.yml import CHAT_SYSTEM
+from src.aibot.infrastructure.api.openai_api import generate_openai_response
+from src.aibot.types import GPTParams
+from src.aibot.utils.decorators.access import is_not_blocked_user
+from src.aibot.yml import CHAT_SYSTEM
 
 _client = BotClient().get_instance()
 

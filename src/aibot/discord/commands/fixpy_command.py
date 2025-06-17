@@ -4,18 +4,18 @@ from discord import (
 )
 from discord.ui import Modal, TextInput
 
-from src.suisei.adapters.chat import ChatMessage
-from src.suisei.cli import logger
-from src.suisei.discord.client import BotClient
-from src.suisei.env import (
+from src.aibot.adapters.chat import ChatMessage
+from src.aibot.cli import logger
+from src.aibot.discord.client import BotClient
+from src.aibot.env import (
     FIXPY_MAX_TOKENS,
     FIXPY_MODEL,
     FIXPY_TEMPERATURE,
     FIXPY_TOP_P,
 )
-from src.suisei.infrastructure.api.anthropic_api import generate_anthropic_response
-from src.suisei.types import ClaudeParams
-from src.suisei.yml import FIXPY_SYSTEM
+from src.aibot.infrastructure.api.anthropic_api import generate_anthropic_response
+from src.aibot.types import ClaudeParams
+from src.aibot.yml import FIXPY_SYSTEM
 
 _client: BotClient = BotClient.get_instance()
 
