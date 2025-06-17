@@ -1,5 +1,5 @@
 [project]
-name = "suisei"
+name = "aibot"
 version = "0.1.0"
 description = "AI-powered Discord bot"
 readme = "README.md"

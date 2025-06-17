@@ -21,26 +21,26 @@ mypy src/                 # Type checking
 
 **Running the Bot**
 ```bash
-python -m src.suisei --log DEBUG    # Run with debug logging
-python -m src.suisei --log INFO     # Run with info logging (default)
+python -m src.aibot --log DEBUG    # Run with debug logging
+python -m src.aibot --log INFO     # Run with info logging (default)
 ```
 
 ## Architecture Overview
 
-**Suisei** is an AI-powered Discord bot with a layered architecture supporting both Claude and OpenAI APIs.
+**aibot** is an AI-powered Discord bot with a layered architecture supporting both Claude and OpenAI APIs.
 
 ### Core Layers
 
-1. **Discord Layer** (`src/suisei/discord/`)
+1. **Discord Layer** (`src/aibot/discord/`)
    - `client.py`: Singleton BotClient managing Discord connection
    - `event.py`: Discord event handlers
    - `commands/`: Slash command implementations (`/fixpy`, access control)
 
-2. **Adapter Layer** (`src/suisei/adapters/`)
+2. **Adapter Layer** (`src/aibot/adapters/`)
    - `chat.py`: Message abstraction (`ChatMessage`, `ChatHistory`)
    - `response.py`: Response formatting and handling
 
-3. **Infrastructure Layer** (`src/suisei/infrastructure/`)
+3. **Infrastructure Layer** (`src/aibot/infrastructure/`)
    - `api/`: API clients for Anthropic Claude and OpenAI
    - `db/dao/`: Database access objects with async SQLite support
 
@@ -59,7 +59,8 @@ python -m src.suisei --log INFO     # Run with info logging (default)
 ## Configuration Requirements
 
 - `.env` file with Discord token, API keys, admin users, authorized servers
-- `.prompt.yml` file for system prompts (planned)
+- `prompts/` directory for system prompts configuration
+- `i18n/translation-*.json` files for multi-language support (EN/JA)
 - Python 3.12 required
 
 ## Code Style Standards
@@ -69,6 +70,7 @@ python -m src.suisei --log INFO     # Run with info logging (default)
 - **Type Checking**: Strict MyPy configuration - all functions must have type annotations
 - **Formatting**: Ruff with trailing commas enforced, docstring code formatting enabled
 - **Import Style**: Wildcard imports allowed (F403 ignored)
+- **Design Principles**: Follow SOLID and GRASP principles for maintainable code architecture
 
 ## Database
 

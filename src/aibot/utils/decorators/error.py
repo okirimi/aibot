@@ -5,8 +5,8 @@ from typing import Any
 import anthropic
 import openai
 
-from src.suisei.adapters.response import ResponseResult, ResponseStatus
-from src.suisei.cli import logger
+from src.aibot.adapters.response import ResponseResult, ResponseStatus
+from src.aibot.cli import logger
 
 
 def handle_anthropic_service_errors(

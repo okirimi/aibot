@@ -1,9 +1,9 @@
 from openai import OpenAI
 
-from src.suisei.adapters.chat import ChatHistory, ChatMessage
-from src.suisei.adapters.response import ResponseResult, ResponseStatus
-from src.suisei.types import GPTParams
-from src.suisei.utils.decorators.error import handle_openai_service_errors
+from src.aibot.adapters.chat import ChatHistory, ChatMessage
+from src.aibot.adapters.response import ResponseResult, ResponseStatus
+from src.aibot.types import GPTParams
+from src.aibot.utils.decorators.error import handle_openai_service_errors
 
 _client = OpenAI()
 

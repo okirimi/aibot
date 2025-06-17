@@ -1,0 +1,49 @@
+{
+  "commands": {
+    "chat": {
+      "description": "Perform a single-turn chat with AI",
+      "parameter_names": {
+        "message": "message"
+      }
+    },
+    "grant": {
+      "description": "Grant an access level to the user"
+    },
+    "check": {
+      "description": "Check the access level of the user"
+    },
+    "revoke": {
+      "description": "Revoke an access level for the user"
+    },
+    "fixpy": {
+      "description": "Identify and fix bugs in Python code"
+    }
+  },
+  "errors": {
+    "no_available_model": "**ERROR** - No available models",
+    "command_processing_error": "**ERROR** - An error occurred while processing the command",
+    "ai_response_generation_failed": "**ERROR** - Failed to generate response from AI service",
+    "fixpy_command_processing_error": "**ERROR** - An error occurred while processing the fixpy command",
+    "fixpy_modal_execution_error": "**ERROR** - An error occurred while executing the command",
+    "chat_command_processing_error": "**ERROR** - An error occurred while processing the command"
+  },
+  "access_control": {
+    "guild_only_command": "This command can only be used in a guild",
+    "user_not_in_guild": "The user does not exist in the guild",
+    "select_access_level_placeholder": "Select an access level...",
+    "grant_access_level_message": "Select an access level to grant to the user",
+    "revoke_access_level_message": "Select an access level to revoke for the user",
+    "access_level_granted": "Access level `{access_level}` has been granted to the user (ID: `{user_id}`)",
+    "access_level_revoked": "Access level `{access_level}` has been revoked from the user (ID: `{user_id}`)",
+    "user_does_not_have_access_level": "The user (ID: `{user_id}`) does not have the access level `{access_level}`",
+    "user_has_advanced_and_blocked": "The user (ID: `{user_id}`) has the access level `advanced` and `blocked`",
+    "user_has_advanced": "The user (ID: `{user_id}`) has the access level `advanced`",
+    "user_has_blocked": "The user (ID: `{user_id}`) has the access level `blocked`",
+    "user_has_no_access_level": "The user (ID: `{user_id}`) does not have any access level"
+  },
+  "fixpy": {
+    "modal_title": "Python Bug Buster",
+    "code_input_label": "fixpy",
+    "code_input_placeholder": "Please enter your code"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "commands": {
+    "chat": {
+      "description": "AIとシングルターンのチャットを行います",
+      "parameter_names": {
+        "message": "message"
+      }
+    },
+    "grant": {
+      "description": "ユーザーにアクセスレベルを付与します"
+    },
+    "check": {
+      "description": "ユーザーのアクセスレベルを確認します"
+    },
+    "revoke": {
+      "description": "ユーザーのアクセスレベルを取り消します"
+    },
+    "fixpy": {
+      "description": "Pythonコードのバグを特定し修正します"
+    }
+  },
+  "errors": {
+    "no_available_model": "**ERROR** - 利用可能なモデルがありません",
+    "command_processing_error": "**ERROR** - コマンドの処理中にエラーが発生しました",
+    "ai_response_generation_failed": "**ERROR** - AIサービスからの応答の生成に失敗しました",
+    "fixpy_command_processing_error": "**ERROR** - fixpyコマンドの処理中にエラーが発生しました",
+    "fixpy_modal_execution_error": "**ERROR** - コマンドの実行中にエラーが発生しました",
+    "chat_command_processing_error": "**ERROR** - コマンドの処理中にエラーが発生しました"
+  },
+  "access_control": {
+    "guild_only_command": "このコマンドはギルド内でのみ使用できます",
+    "user_not_in_guild": "ユーザーがギルドに存在しません",
+    "select_access_level_placeholder": "アクセスレベルを選択してください...",
+    "grant_access_level_message": "ユーザーに付与するアクセスレベルを選択してください",
+    "revoke_access_level_message": "ユーザーから取り消すアクセスレベルを選択してください",
+    "access_level_granted": "アクセスレベル `{access_level}` がユーザー (ID: `{user_id}`) に付与されました",
+    "access_level_revoked": "アクセスレベル `{access_level}` がユーザー (ID: `{user_id}`) から取り消されました",
+    "user_does_not_have_access_level": "ユーザー (ID: `{user_id}`) はアクセスレベル `{access_level}` を持っていません",
+    "user_has_advanced_and_blocked": "ユーザー (ID: `{user_id}`) はアクセスレベル `advanced` と `blocked` を持っています",
+    "user_has_advanced": "ユーザー (ID: `{user_id}`) はアクセスレベル `advanced` を持っています",
+    "user_has_blocked": "ユーザー (ID: `{user_id}`) はアクセスレベル `blocked` を持っています",
+    "user_has_no_access_level": "ユーザー (ID: `{user_id}`) はアクセスレベルを持っていません"
+  },
+  "fixpy": {
+    "modal_title": "Pythonバグバスター",
+    "code_input_label": "fixpy",
+    "code_input_placeholder": "コードを入力してください"
+  }
+}
