@@ -17,6 +17,9 @@
     },
     "fixpy": {
       "description": "Identify and fix bugs in Python code"
+    },
+    "provider": {
+      "description": "Select AI provider"
     }
   },
   "errors": {
@@ -45,5 +48,12 @@
     "modal_title": "Python Bug Buster",
     "code_input_label": "fixpy",
     "code_input_placeholder": "Please enter your code"
+  },
+  "provider": {
+    "select_placeholder": "Select an AI provider...",
+    "selection_message": "Select the AI provider to use",
+    "provider_set": "AI provider has been set to `{provider}`",
+    "current_provider": "Current AI provider: `{provider}`",
+    "no_provider_set": "No AI provider set (default: openai)"
   }
 }

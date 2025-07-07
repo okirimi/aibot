@@ -17,6 +17,9 @@
     },
     "fixpy": {
       "description": "Pythonコードのバグを特定し修正します"
+    },
+    "provider": {
+      "description": "AIプロバイダーを選択します"
     }
   },
   "errors": {
@@ -45,5 +48,12 @@
     "modal_title": "Pythonバグバスター",
     "code_input_label": "fixpy",
     "code_input_placeholder": "コードを入力してください"
+  },
+  "provider": {
+    "select_placeholder": "AIプロバイダーを選択してください...",
+    "selection_message": "使用するAIプロバイダーを選択してください",
+    "provider_set": "AIプロバイダーが `{provider}` に設定されました",
+    "current_provider": "現在のAIプロバイダー: `{provider}`",
+    "no_provider_set": "AIプロバイダーが設定されていません（デフォルト: openai）"
   }
 }
