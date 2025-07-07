@@ -7,5 +7,5 @@ with (
 ):
     prompt = yaml.safe_load(f)
 
-CHAT_SYSTEM: str = prompt.get("chat")
-FIXPY_SYSTEM: str = prompt.get("fixpy")
+CHAT_SYSTEM_DEFAULT: str = prompt.get("chat_default", "")
+FIXPY_SYSTEM: str = prompt.get("fixpy", "")
