@@ -81,7 +81,7 @@ pip install -r requirements.lock
 最後に、`.env` ファイルと `.prompt.sample.yml` ファイルのすべての値が正しく入力されていることを確認し、次のコマンドを実行してください：
 
 ```bash
-python -m src.aibot --log <ログレベル>
+python -m src.aibot --log <log_level>
 ```
 
 > [!TIP]
