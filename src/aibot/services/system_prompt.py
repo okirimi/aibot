@@ -13,7 +13,7 @@ class SystemPromptService:
     def __init__(self) -> None:
         """Initialize the SystemPromptService with a DAO instance."""
         self._dao: PromptDAO = PromptDAO()
-        self._prompts_dir: Path = Path("prompts/generated")
+        self._prompts_dir: Path = Path("resources/generated")
         self._ensure_prompts_directory()
 
     def _ensure_prompts_directory(self) -> None:
