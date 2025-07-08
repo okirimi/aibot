@@ -74,7 +74,7 @@ class PromptDAO(BaseDAO):
         """
         if not prompt or not prompt.strip():
             msg = "Prompt content cannot be empty."
-            raise ValueError(msg)
+            logger.warning(msg)
 
         conn = await aiosqlite.connect(super().DB_NAME)
         try:
