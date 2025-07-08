@@ -22,6 +22,7 @@ async def generate_gemini_response(
             system_instruction=system_prompt,
             temperature=model_params.temperature,
             top_p=model_params.top_p,
+            thinking_config=types.ThinkingConfig(thinking_budget=0),
         ),
         contents=contents,
     )

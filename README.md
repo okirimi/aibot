@@ -3,35 +3,92 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white&style=flat&labelColor=24292e)
 ![License](https://img.shields.io/badge/License-BSD--3--Clause-orange.svg?style=flat&labelColor=24292e)
 
-**AiBot**は、AIにあなただけのキャラクターを設定し、会話を行ったり文章やコードの修正などの作業をサポートするDiscord Botです。
+**AiBot**は、あなただけのキャラクターを設定し、会話を行ったり文章やコードの修正などの作業をサポートするDiscord Botです。
 
 ## Features
 
 以下に機能ごとのスラッシュコマンドを紹介します。
 
 > [!IMPORTANT]
-> 管理者権限が必要とされるスラッシュコマンド（`/provider`, `/grant`, `/revoke`, `/check`）は、環境変数 `ADMIN_USER_IDS` に登録されたユーザーIDを持つユーザーのみが実行可能です。
+> 管理者権限が必要とされるスラッシュコマンドは、環境変数 `ADMIN_USER_IDS` に登録されたユーザーIDを持つユーザーのみが実行可能です。
 > 権限のないユーザーがこれらを実行した場合、エラーメッセージが当該ユーザーのUIに表示されますが、アプリの動作には影響しません。
 
-### グローバル設定
-- `/provider`: 利用するAIプロバイダーの選択（管理者のみ）
-
-### チャット機能
-- `/chat`: AIとシングルターンの会話を行います
-- `/system`: システムプロンプトを設定します
-- `/systemlist`: 以前のシステムプロンプトを検索し、内容を閲覧できます
-- `/reuse`: 以前のシステムプロンプトを現在の設定として反映します
-- `/resetsystem`: システム指示をデフォルトにリセットします（強制システムモード中は無効）
-- `/forcesystem`: デフォルトのシステム指示を強制的に適用します（管理者のみ）
-- `/unlocksystem`: 強制システムモードを解除します（管理者のみ）
-
-### コード修正
-- `/fixpy`: Pythonコードのバグ検出と修正
-
-### アクセス制御
-- `/grant`: ユーザーへのアクセス権限付与（管理者のみ）
-- `/revoke`: ユーザーのアクセス権限取り消し（管理者のみ）
-- `/check`: ユーザーのアクセス権限確認（管理者のみ）
+<table>
+  <thead>
+    <tr>
+      <th>カテゴリ</th>
+      <th>コマンド</th>
+      <th>説明</th>
+      <th>権限</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="1">グローバル設定</td>
+      <td><code>/provider</code></td>
+      <td>利用するAIプロバイダーの選択</td>
+      <td>管理者</td>
+    </tr>
+    <tr>
+      <td rowspan="7">チャット機能</td>
+      <td><code>/chat</code></td>
+      <td>AIとシングルターンの会話を行う</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>/system</code></td>
+      <td>システムプロンプトを設定</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>/systemlist</code></td>
+      <td>以前のシステムプロンプトを検索し、内容を閲覧</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>/reuse</code></td>
+      <td>以前のシステムプロンプトを現在の設定として反映</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>/resetsystem</code></td>
+      <td>システム指示をデフォルトにリセット（強制システムモード中は無効）</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>/forcesystem</code></td>
+      <td>デフォルトのシステム指示を強制的に適用</td>
+      <td>管理者</td>
+    </tr>
+    <tr>
+      <td><code>/unlocksystem</code></td>
+      <td>強制システムモードを解除</td>
+      <td>管理者</td>
+    </tr>
+    <tr>
+      <td rowspan="1">コード修正</td>
+      <td><code>/fixpy</code></td>
+      <td>Pythonコードのバグ検出と修正</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td rowspan="3">アクセス制御</td>
+      <td><code>/grant</code></td>
+      <td>ユーザーへのアクセス権限付与</td>
+      <td>管理者</td>
+    </tr>
+    <tr>
+      <td><code>/revoke</code></td>
+      <td>ユーザーのアクセス権限取り消し</td>
+      <td>管理者</td>
+    </tr>
+    <tr>
+      <td><code>/check</code></td>
+      <td>ユーザーのアクセス権限確認</td>
+      <td>管理者</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Getting started
 
@@ -78,7 +135,7 @@ pip install -r requirements.lock
 
 **4. Botの起動**
 
-最後に、`.env` ファイルと `.prompt.sample.yml` ファイルのすべての値が正しく入力されていることを確認し、次のコマンドを実行してください：
+最後に、`.env` と `.resources/system_instructions.yml` の内容が正しいことを確認してから、botを起動してください。
 
 ```bash
 python -m src.aibot --log <log_level>
