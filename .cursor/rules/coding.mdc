@@ -3,81 +3,138 @@ description:
 globs: *.py
 alwaysApply: false
 ---
-# Coding rules
+# Coding Standards
 
-- Specify explicit types for all variables, functions, and objects.
-- Use try...except blocks as appropriate to handle exceptions and log error information.
-- Adhere to SOLID Principles and GRASP Principles.
+This document defines **mandatory coding standards** that must be followed for all development activities, including adding, modifying, and refactoring code.
 
 ## SOLID Principles
 
+The **SOLID principles** are the most fundamental and strict design guidelines to improve modular design, separation of concerns, extensibility, and maintainability. All developers must consistently adhere to them.
+
 ### Single Responsibility Principle
 
-- A class should have only one responsibility, and there should be only one reason for a class to change.
+**A class should have only one reason to change.**
+- "Responsibility" refers to the **reason to change** a module or class.
+- This does not mean a class should do only one thing.
+- It is not about grouping similar logic into one place. Rather, if a class has multiple reasons to change stemming from different concerns or stakeholders, those responsibilities should be separated into distinct modules.
 
-### Open-Closed Principle
+---
 
-- Classes should be open for extension but closed for modification.
+### Open/Closed Principle
+
+**Software entities should be open for extension, but closed for modification.**
+- Open for extension means new functionality can be added by adding new code.
+- Closed for modification means existing code should not be changed when adding new functionality.
+
+---
 
 ### Liskov Substitution Principle
 
-- If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any desirable properties.
+**Subtypes must be substitutable for their supertypes.**
+- Instances of subtypes should behave in the same way as instances of their supertypes.
+- A subtype refers to a class that inherits from a supertype.
+- If replacing a supertype with a subtype causes unexpected behavior, inheritance should not be used.
+
+---
 
 ### Interface Segregation Principle
 
-- Clients should not be forced to depend on methods they do not use.
+**Clients should not be forced to depend on interfaces they do not use.**
+- Clients should only be exposed to the methods they actually need.
+- If a client ends up with unimplemented or unused methods, the interface should be split appropriately.
+
+---
 
 ### Dependency Inversion Principle
 
-- High-level modules should not depend on low-level modules. Both should depend on abstractions.
-- Abstractions should not depend on details. Details should depend on abstractions.
+**This principle consists of two rules:**
 
-## GRASP Principles
+1. **High-level modules should not depend on low-level modules. Both should depend on abstractions.**
+2. **Abstractions should not depend on details. Details should depend on abstractions.**
+
+- "Dependency" here means one module uses functionality from another.
+- High-level modules consume features, and low-level modules provide them.
+- "Abstractions" refer to interfaces or abstract classes that define behavior independently of implementation (e.g., "save" is abstract, while "save to file" or "save to database" are details).
+- Modules should depend on shared abstractions rather than on each other directly.
+
+---
+
+## GRASP (General Responsibility Assignment Software Patterns)
+
+**GRASP** is a set of guidelines for assigning responsibilities in object-oriented design to promote flexibility and maintainability. It serves as a complementary foundation to the SOLID principles and should be followed as closely as possible by all developers.
+
+---
 
 ### Information Expert
 
-- Assign responsibility to the class that has the information needed to fulfill it.
-- Place responsibility on the class with the most information required to fulfill it.
+**Assign a responsibility to the class that has the necessary information to fulfill it.**
+
+- The class that holds the relevant data is typically the best place for the corresponding behavior.
+- This encourages data encapsulation and reduces coupling.
+
+---
 
 ### Creator
 
-- Assign class B the responsibility to create object A if one of the following applies:
-  - B contains or aggregates A
-  - B records A
-  - B closely uses A
-  - B has initializing information for A
+**A class B should create an instance of class A if there is a strong relationship between them.**
+
+Class B is considered the creator of A if any of the following conditions apply:
+- B aggregates A (has-a relationship)
+- B holds a reference to A
+- B has the initialization data for A
+- B controls the lifecycle of A
+- B frequently uses A
+
+---
 
 ### Controller
 
-- Use a controller object (non-UI class) to handle system events.
-- The controller should delegate work to other objects rather than doing it itself.
+**System events should be handled by a controller, not by the UI.**
 
-### Indirection
+- The controller should not directly interact with UI elements or user interfaces.
 
-- Assign responsibility to an intermediate object to mediate between components.
-- This reduces direct coupling between components.
+---
 
 ### Low Coupling
 
-- Reduce dependencies between classes.
-- Aim for lower impact of changes and higher reuse potential.
+**Minimize dependencies between classes wherever possible.**
+
+---
 
 ### High Cohesion
 
-- Keep classes focused on a specific, related set of responsibilities.
-- Avoid classes with too many unrelated responsibilities.
+**Each class should have highly related and focused responsibilities.**
+
+---
 
 ### Polymorphism
 
-- Use polymorphic operations for behaviors that vary by type instead of explicit type checking.
-- Assign responsibility for varying behavior to the types for which the behavior varies.
+**Use polymorphism to handle behavioral variations via abstract classes or interfaces, and implement specific behaviors in subclasses.**
 
-### Protected Variations
+- Promotes maintainability and extensibility.
+- Closely aligned with the Liskov Substitution Principle.
 
-- Identify points of predicted variation and create stable interfaces around them.
-- Protect elements from changes in other elements.
+---
 
 ### Pure Fabrication
 
-- Create service classes that don't represent domain concepts when needed for low coupling and high cohesion.
-- Use when solutions provided by other patterns don't achieve desired coupling/cohesion.
+**Introduce abstract classes to balance cohesion and coupling.**
+
+- High cohesion and low coupling often conflict.
+- To resolve this, create additional abstract classes that centralize related responsibilities without overly coupling other classes.
+
+---
+
+### Indirection
+
+**Introduce a mediator class to avoid strong direct dependencies between two classes.**
+
+- This promotes loose coupling.
+
+---
+
+### Protected Variations
+
+**Encapsulate areas of instability behind stable interfaces to protect against changes.**
+
+- This creates a structure that is resilient to changes in implementation details.
