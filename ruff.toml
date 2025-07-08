@@ -45,6 +45,8 @@ ignore = [
     "D413",   # Allow missing blank lines after the last section of a multiline docstring.
     "F403",   # Allow wildcard imports for flexibility in certain contexts.
     "PGH003", # Allow `type: ignore`.
+    "RET504",
+    "TRY300",
 ]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.

@@ -1,7 +1,0 @@
-aiosqlite
-anthropic
-discord
-openai
-python-dotenv
-pytz
-pyyaml

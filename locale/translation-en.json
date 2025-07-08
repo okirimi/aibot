@@ -17,6 +17,12 @@
     },
     "fixpy": {
       "description": "Identify and fix bugs in Python code"
+    },
+    "provider": {
+      "description": "Select AI provider"
+    },
+    "system": {
+      "description": "Set system prompt for chat commands"
     }
   },
   "errors": {
@@ -25,7 +31,8 @@
     "ai_response_generation_failed": "**ERROR** - Failed to generate response from AI service",
     "fixpy_command_processing_error": "**ERROR** - An error occurred while processing the fixpy command",
     "fixpy_modal_execution_error": "**ERROR** - An error occurred while executing the command",
-    "chat_command_processing_error": "**ERROR** - An error occurred while processing the command"
+    "chat_command_processing_error": "**ERROR** - An error occurred while processing the command",
+    "system_command_processing_error": "**ERROR** - An error occurred during system prompt processing"
   },
   "access_control": {
     "guild_only_command": "This command can only be used in a guild",
@@ -45,5 +52,19 @@
     "modal_title": "Python Bug Buster",
     "code_input_label": "fixpy",
     "code_input_placeholder": "Please enter your code"
+  },
+  "provider": {
+    "select_placeholder": "Select an AI provider...",
+    "selection_message": "Select the AI provider to use",
+    "provider_set": "AI provider has been set to `{provider}`",
+    "current_provider": "Current AI provider: `{provider}`",
+    "no_provider_set": "No AI provider set (default: openai)"
+  },
+  "system": {
+    "modal_title": "System Prompt Setting",
+    "prompt_input_label": "System Prompt",
+    "prompt_input_placeholder": "Enter system prompt for chat commands...",
+    "prompt_set": "System prompt has been set successfully",
+    "prompt_creation_failed": "Failed to create system prompt"
   }
 }

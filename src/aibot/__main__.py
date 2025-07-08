@@ -7,8 +7,8 @@ from contextlib import contextmanager
 from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.discord.commands import *
-from src.aibot.discord.event import *
 from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
+from src.aibot.infrastructure.db.dao.prompt_dao import PromptDAO
 
 
 @contextmanager
@@ -40,6 +40,7 @@ async def main() -> None:
     """Entry point for the 'SuiseiBot'."""
     # Initialize database tables
     await AccessLevelDAO().create_table()
+    await PromptDAO().create_table()
 
     # This system environment variable is specific to this function
     DISCORD_BOT_TOKEN: str = os.environ["DISCORD_BOT_TOKEN"]  # noqa: N806

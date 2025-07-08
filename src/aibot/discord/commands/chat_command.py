@@ -3,19 +3,17 @@ from discord import Interaction, app_commands
 from src.aibot.adapters.chat import ChatMessage
 from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
-from src.aibot.env import (
-    CHAT_MAX_TOKENS,
-    CHAT_MODEL,
-    CHAT_TEMPERATURE,
-    CHAT_TOP_P,
-)
-from src.aibot.infrastructure.api.openai_api import generate_openai_response
+from src.aibot.infrastructure.api.factory import ApiFactory
 from src.aibot.json import get_text
-from src.aibot.types import GPTParams
+from src.aibot.services.prompt_manager import get_prompt_manager
+from src.aibot.services.provider_manager import ProviderManager
 from src.aibot.utils.decorators.access import is_not_blocked_user
-from src.aibot.yml import CHAT_SYSTEM
+from src.aibot.yml import CHAT_SYSTEM_DEFAULT
 
+_api_factory = ApiFactory()
 _client = BotClient().get_instance()
+_prompt_manager = get_prompt_manager()
+_provider_manager = ProviderManager.get_instance()
 
 
 @_client.tree.command(name="chat", description=get_text("commands.chat.description"))
@@ -38,27 +36,22 @@ async def chat_command(interaction: Interaction, user_msg: str) -> None:
 
         await interaction.response.defer()
 
-        if CHAT_MODEL is None:
-            await interaction.followup.send(
-                get_text("errors.no_available_model"),
-                ephemeral=True,
-            )
-            logger.error("Chat model is not set.")
-            return
-
-        model_params = GPTParams(
-            model=CHAT_MODEL,
-            max_tokens=CHAT_MAX_TOKENS,
-            temperature=CHAT_TEMPERATURE,
-            top_p=CHAT_TOP_P,
-        )
-
         message = ChatMessage(role="user", content=user_msg)
 
-        response = await generate_openai_response(
-            system_prompt=CHAT_SYSTEM,
-            prompt=[message],
-            model_params=model_params,
+        # Get dynamic system prompt or fallback to static
+        try:
+            system_prompt = await _prompt_manager.get_chat_system_prompt()
+        except Exception as e:
+            logger.warning("Failed to get dynamic system prompt, using static: %s", e)
+            system_prompt = CHAT_SYSTEM_DEFAULT
+
+        # Get current provider and generate response
+        current_provider = _provider_manager.get_provider()
+        logger.debug("Using AI provider: %s for chat", current_provider)
+
+        response = await _api_factory.generate_response(
+            system_prompt=system_prompt,
+            messages=[message],
         )
 
         await interaction.followup.send(f"{response.result}")

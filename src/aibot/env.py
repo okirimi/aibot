@@ -40,15 +40,13 @@ BOT_NAME: str = os.environ["BOT_NAME"]
 
 DB_NAME: str = os.environ["DB_NAME"]
 
-CHAT_MAX_TOKENS: int = int(os.environ["CHAT_MAX_TOKENS"])
-CHAT_MODEL: str = os.environ["CHAT_MODEL"]
-CHAT_TEMPERATURE: float = float(os.environ["CHAT_TEMPERATURE"])
-CHAT_TOP_P: float = float(os.environ["CHAT_TOP_P"])
+ANTHROPIC_MODEL: str = os.environ.get("ANTHROPIC_MODEL", "")
+GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "")
+OPENAI_MODEL: str = os.environ.get("OPENAI_MODEL", "")
 
-FIXPY_MAX_TOKENS: int = int(os.environ["FIXPY_MAX_TOKENS"])
-FIXPY_MODEL: str = os.environ["FIXPY_MODEL"]
-FIXPY_TEMPERATURE: float = float(os.environ["FIXPY_TEMPERATURE"])
-FIXPY_TOP_P: float = float(os.environ["FIXPY_TOP_P"])
+DEFAULT_TEMPERATURE: float = float(os.environ["DEFAULT_TEMPERATURE"])
+DEFAULT_TOP_P: float = float(os.environ["DEFAULT_TOP_P"])
+DEFAULT_MAX_TOKENS: int = int(os.environ["DEFAULT_MAX_TOKENS"])
 
 MAX_CHARS_PER_MESSAGE: int = int(os.environ["MAX_CHARS_PER_MESSAGE"])
 

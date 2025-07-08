@@ -17,6 +17,12 @@
     },
     "fixpy": {
       "description": "Pythonコードのバグを特定し修正します"
+    },
+    "provider": {
+      "description": "AIプロバイダーを選択します"
+    },
+    "system": {
+      "description": "/chatで用いるシステムプロンプトを設定します"
     }
   },
   "errors": {
@@ -25,7 +31,8 @@
     "ai_response_generation_failed": "**ERROR** - AIサービスからの応答の生成に失敗しました",
     "fixpy_command_processing_error": "**ERROR** - fixpyコマンドの処理中にエラーが発生しました",
     "fixpy_modal_execution_error": "**ERROR** - コマンドの実行中にエラーが発生しました",
-    "chat_command_processing_error": "**ERROR** - コマンドの処理中にエラーが発生しました"
+    "chat_command_processing_error": "**ERROR** - コマンドの処理中にエラーが発生しました",
+    "system_command_processing_error": "**ERROR** - システムプロンプトの処理中にエラーが発生しました"
   },
   "access_control": {
     "guild_only_command": "このコマンドはギルド内でのみ使用できます",
@@ -45,5 +52,19 @@
     "modal_title": "Pythonバグバスター",
     "code_input_label": "fixpy",
     "code_input_placeholder": "コードを入力してください"
+  },
+  "provider": {
+    "select_placeholder": "AIプロバイダーを選択してください...",
+    "selection_message": "使用するAIプロバイダーを選択してください",
+    "provider_set": "AIプロバイダーが `{provider}` に設定されました",
+    "current_provider": "現在のAIプロバイダー: `{provider}`",
+    "no_provider_set": "AIプロバイダーが設定されていません（デフォルト: openai）"
+  },
+  "system": {
+    "modal_title": "システムプロンプト設定",
+    "prompt_input_label": "システムプロンプト",
+    "prompt_input_placeholder": "システムプロンプトを入力してください...",
+    "prompt_set": "システムプロンプトが正常に設定されました",
+    "prompt_creation_failed": "システムプロンプトの作成に失敗しました"
   }
 }
