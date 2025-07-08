@@ -1,5 +1,6 @@
 import datetime
 from pathlib import Path
+from typing import Any
 
 from src.aibot.cli import logger
 from src.aibot.env import TIMEZONE
@@ -45,13 +46,16 @@ class SystemPromptService:
         created_by: int | None = None,
         *,
         auto_activate: bool = False,
-    ) -> dict[str, any]:
+    ) -> dict[str, Any] | None:
         """Create a new system prompt from Modal input."""
         try:
             file_name = self._generate_filename(created_by)
+            if not file_name:
+                return None
+
             file_path = self._prompts_dir / file_name
 
-            await self._write_prompt_file(file_path, prompt_content.strip())
+            self._write_prompt_file(file_path, prompt_content.strip())
 
             # Save to database
             prompt_id = await self._dao.save_prompt(
@@ -79,6 +83,7 @@ class SystemPromptService:
 
         except Exception as e:
             logger.error("Failed to create prompt from modal: %s", e)
+            return None
 
     async def activate_prompt(self, prompt_id: int) -> bool:
         """Activate a specific prompt and deactivate all others."""
@@ -98,15 +103,18 @@ class SystemPromptService:
         """
         try:
             active_prompt = await self._dao.get_active_prompt()
-            return active_prompt["prompt"] if active_prompt else None
+            return active_prompt # type: ignore
         except Exception as e:
             logger.warning("Failed to get active prompt content: %s", e)
             return None
 
-    async def get_active_prompt_info(self) -> dict[str, any] | None:
+    async def get_active_prompt_info(self) -> dict[str, Any] | None:
         """Get information about the currently active system prompt."""
         try:
-            return await self._dao.get_active_prompt()
+            active_prompt = await self._dao.get_active_prompt()
+            if active_prompt:
+                return {"prompt": active_prompt}
+            return None
         except Exception as e:
             logger.warning("Failed to get active prompt info: %s", e)
             return None

@@ -1,7 +1,9 @@
 import datetime
+from typing import Any
 
 import aiosqlite
 
+from src.aibot.cli import logger
 from src.aibot.env import TIMEZONE
 from src.aibot.infrastructure.db.dao.base import BaseDAO
 
@@ -53,7 +55,7 @@ class PromptDAO(BaseDAO):
         prompt: str,
         file_path: str,
         created_by: int,
-    ) -> None:
+    ) -> int | None:
         """Save a new system prompt to the database.
 
         Parameters
@@ -64,6 +66,11 @@ class PromptDAO(BaseDAO):
             Path to the generated prompt file.
         created_by : int
             User ID who created this prompt.
+
+        Returns
+        -------
+        int
+            The ID of the newly created prompt.
         """
         if not prompt or not prompt.strip():
             msg = "Prompt content cannot be empty."
@@ -75,12 +82,16 @@ class PromptDAO(BaseDAO):
             INSERT INTO system_prompt (prompt, file_path, created_by)
             VALUES (?, ?, ?);
             """
-            await conn.execute(query, (prompt.strip(), file_path, created_by))
+            cursor = await conn.execute(query, (prompt.strip(), file_path, created_by))
             await conn.commit()
+            if cursor.lastrowid is None:
+                msg = "Failed to create prompt: no ID returned"
+                logger.error(msg)
+            return cursor.lastrowid
         finally:
             await conn.close()
 
-    async def get_prompt_row_by_id(self, prompt_id: int) -> dict[str, any] | None:
+    async def get_prompt_row_by_id(self, prompt_id: int) -> dict[str, Any] | None:
         """Get a complete prompt row by its ID.
 
         Parameters
