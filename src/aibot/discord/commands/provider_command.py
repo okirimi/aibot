@@ -54,6 +54,9 @@ class ProviderSelector(Select):
             The Discord interaction context.
         """
         try:
+            # Defer the response first
+            await interaction.response.defer(ephemeral=True)
+
             chosen_provider: ProviderType = self.values[0]  # type: ignore[assignment]
 
             # Update the global provider setting

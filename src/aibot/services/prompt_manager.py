@@ -1,5 +1,5 @@
 from src.aibot.cli import logger
-from src.aibot.env import CHAT_SYSTEM_DEFAULT
+from src.aibot.yml import CHAT_SYSTEM_DEFAULT
 from src.aibot.services.system_prompt import SystemPromptService
 
 
@@ -33,7 +33,7 @@ class PromptManager:
             active_content = await self.service.get_active_prompt_content()
             if active_content:
                 logger.debug("Using dynamic system prompt for chat")
-                return active_content
+                return active_content # type: ignore
         except Exception as e:
             logger.warning("Failed to get dynamic prompt, using fallback: %s", e)
 
@@ -67,5 +67,5 @@ def get_prompt_manager() -> PromptManager:
         The global PromptManager instance.
     """
     if not hasattr(get_prompt_manager, "instance"):
-        get_prompt_manager.instance = PromptManager()
-    return get_prompt_manager.instance
+        get_prompt_manager.instance = PromptManager() # type: ignore
+    return get_prompt_manager.instance # type: ignore

@@ -7,7 +7,6 @@ from contextlib import contextmanager
 from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.discord.commands import *
-from src.aibot.discord.event import *
 from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
 
 

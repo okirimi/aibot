@@ -8,7 +8,7 @@ from src.aibot.cli import logger
 from src.aibot.env import LANGUAGE
 
 # Base path to translation files
-TRANSLATION_DIR = Path(__file__).parent.parent.parent / "i18n"
+TRANSLATION_DIR = Path(__file__).parent.parent.parent / "locale"
 
 
 class TranslationManager:

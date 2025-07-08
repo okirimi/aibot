@@ -2,10 +2,12 @@ from src.aibot.adapters.chat import ChatMessage
 from src.aibot.adapters.response import ResponseResult
 from src.aibot.cli import logger
 from src.aibot.env import (
-    CHAT_MAX_TOKENS,
-    CHAT_MODEL,
-    CHAT_TEMPERATURE,
-    CHAT_TOP_P,
+    ANTHROPIC_MODEL,
+    DEFAULT_MAX_TOKENS,
+    DEFAULT_TEMPERATURE,
+    DEFAULT_TOP_P,
+    GEMINI_MODEL,
+    OPENAI_MODEL,
 )
 from src.aibot.infrastructure.api.anthropic_api import generate_anthropic_response
 from src.aibot.infrastructure.api.gemini_api import generate_gemini_response
@@ -25,23 +27,23 @@ class ApiFactory:
         """Create model parameters based on the provider type."""
         if provider == "anthropic":
             return ClaudeParams(
-                model=CHAT_MODEL,
-                max_tokens=CHAT_MAX_TOKENS,
-                temperature=CHAT_TEMPERATURE,
-                top_p=CHAT_TOP_P,
+                model=ANTHROPIC_MODEL,
+                max_tokens=DEFAULT_MAX_TOKENS,
+                temperature=DEFAULT_TEMPERATURE,
+                top_p=DEFAULT_TOP_P,
             )
         elif provider == "google":  # noqa: RET505
             return GeminiParams(
-                model=CHAT_MODEL,
-                temperature=CHAT_TEMPERATURE,
-                top_p=CHAT_TOP_P,
+                model=GEMINI_MODEL,
+                temperature=DEFAULT_TEMPERATURE,
+                top_p=DEFAULT_TOP_P,
             )
         elif provider == "openai":
             return GPTParams(
-                model=CHAT_MODEL,
-                max_tokens=CHAT_MAX_TOKENS,
-                temperature=CHAT_TEMPERATURE,
-                top_p=CHAT_TOP_P,
+                model=OPENAI_MODEL,
+                max_tokens=DEFAULT_MAX_TOKENS,
+                temperature=DEFAULT_TEMPERATURE,
+                top_p=DEFAULT_TOP_P,
             )
         else:
             msg = f"Unsupported provider: {provider}"
@@ -76,10 +78,6 @@ class ApiFactory:
         """
         if provider is None:
             provider = self._provider_manager.get_provider()
-
-        if CHAT_MODEL is None:
-            msg = "Chat model is not configured"
-            raise ValueError(msg)
 
         model_params = self._create_model_params(provider)
 

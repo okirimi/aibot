@@ -7,18 +7,18 @@ from discord.ui import Modal, TextInput
 from src.aibot.adapters.chat import ChatMessage
 from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
-from src.aibot.env import (
-    FIXPY_MAX_TOKENS,
-    FIXPY_MODEL,
-    FIXPY_TEMPERATURE,
-    FIXPY_TOP_P,
-)
-from src.aibot.infrastructure.api.anthropic_api import generate_anthropic_response
+from src.aibot.infrastructure.api.factory import ApiFactory
 from src.aibot.json import get_text
-from src.aibot.types import ClaudeParams
+from src.aibot.services.provider_manager import ProviderManager
+from src.aibot.services.prompt_manager import get_prompt_manager
 from src.aibot.yml import FIXPY_SYSTEM
 
+
+_api_factory = ApiFactory()
 _client: BotClient = BotClient.get_instance()
+_prompt_manager = get_prompt_manager()
+_provider_manager = ProviderManager.get_instance()
+
 
 
 class CodeModal(Modal):
@@ -51,26 +51,16 @@ class CodeModal(Modal):
         try:
             code = self.code_input.value
 
-            if FIXPY_MODEL is None:
-                await interaction.followup.send(
-                    get_text("errors.no_available_model"),
-                    ephemeral=True,
-                )
-                return
+            system_prompt = FIXPY_SYSTEM
 
-            params = ClaudeParams(
-                model=FIXPY_MODEL,
-                max_tokens=FIXPY_MAX_TOKENS,
-                temperature=FIXPY_TEMPERATURE,
-                top_p=FIXPY_TOP_P,
-            )
+            current_provider = _provider_manager.get_provider()
+            logger.debug("Using AI provider: %s for fixpy", current_provider)
 
             message = [ChatMessage(role="user", content=code)]
 
-            response = await generate_anthropic_response(
-                system_prompt=FIXPY_SYSTEM,
-                prompt=message,
-                model_params=params,
+            response = await _api_factory.generate_response(
+                system_prompt=system_prompt,
+                messages=message,
             )
 
             if response.result is not None:
@@ -106,13 +96,6 @@ async def fixpy_command(
     try:
         user = interaction.user
         logger.info("User ( %s ) executed 'fixpy' command", user)
-
-        if FIXPY_MODEL is None:
-            await interaction.response.send_message(
-                get_text("errors.no_available_model"),
-                ephemeral=True,
-            )
-            return
 
         # Show the modal to input code
         modal = CodeModal()
