@@ -5,7 +5,7 @@ from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.json import get_text
 from src.aibot.services.provider_manager import ProviderManager, ProviderType
-from src.aibot.utils.decorators.access import is_not_blocked_user
+from src.aibot.utils.decorators.access import is_admin_user, is_not_blocked_user
 
 _client = BotClient().get_instance()
 _provider_manager = ProviderManager.get_instance()
@@ -84,6 +84,7 @@ class ProviderSelector(Select):
 
 
 @_client.tree.command(name="provider", description=get_text("commands.provider.description"))
+@is_admin_user()
 @is_not_blocked_user()
 async def provider_command(interaction: Interaction) -> None:
     """Select the AI provider to use for chat commands.
