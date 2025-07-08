@@ -4,6 +4,8 @@ from src.aibot.env import DB_NAME
 
 
 class BaseDAO:
+    """Base Data Access Object class providing common functionality for database operations."""
+
     DB_NAME: str = DB_NAME
 
     @staticmethod

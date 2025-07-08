@@ -5,6 +5,7 @@ from discord import Interaction, app_commands
 
 from src.aibot.env import ADMIN_USER_IDS, AUTHORIZED_SERVER_IDS
 from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
+from src.aibot.infrastructure.db.dao.system_config_dao import SystemConfigDAO
 
 _T = TypeVar("_T")
 
@@ -75,5 +76,36 @@ def is_not_blocked_user() -> Callable[[_T], _T]:
             access_level="blocked",
         )
         return interaction.user.id not in blocked_user_ids
+
+    return app_commands.check(predicate)
+
+
+def check_force_system_mode() -> Callable[[_T], _T]:
+    """Check if force system mode allows the command execution.
+
+    Returns
+    -------
+    Callable[[_T], _T]
+        A decorator that checks if force system mode is disabled or if the user is an admin.
+        If force system mode is enabled and user is not admin, the command is blocked.
+    """
+
+    async def predicate(interaction: Interaction) -> bool:
+        # Admin users can always execute commands regardless of force system mode
+        if interaction.user.id in ADMIN_USER_IDS:
+            return True
+
+        # Check if force system mode is enabled
+        config_dao = SystemConfigDAO()
+        is_force_enabled = await config_dao.is_force_system_enabled()
+
+        # If force system mode is enabled, raise custom error
+        if is_force_enabled:
+            raise app_commands.CheckFailure(
+                "**強制システムモードが有効です**\n"
+                "ユーザーによるシステムプロンプトの変更は無効化されています。"
+            )
+
+        return True
 
     return app_commands.check(predicate)

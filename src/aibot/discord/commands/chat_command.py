@@ -5,8 +5,8 @@ from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.infrastructure.api.factory import ApiFactory
 from src.aibot.json import get_text
-from src.aibot.services.provider_manager import ProviderManager
 from src.aibot.services.prompt_manager import get_prompt_manager
+from src.aibot.services.provider_manager import ProviderManager
 from src.aibot.utils.decorators.access import is_not_blocked_user
 from src.aibot.yml import CHAT_SYSTEM_DEFAULT
 

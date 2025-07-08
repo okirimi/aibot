@@ -210,3 +210,97 @@ class PromptDAO(BaseDAO):
             return cursor.rowcount > 0
         finally:
             await conn.close()
+
+    async def delete_prompt_by_file_path(self, file_path: str) -> bool:
+        """Delete a prompt record by its file path.
+
+        Parameters
+        ----------
+        file_path : str
+            The file path of the prompt to delete.
+
+        Returns
+        -------
+        bool
+            True if the prompt was successfully deleted, False otherwise.
+        """
+        conn = await aiosqlite.connect(super().DB_NAME)
+        try:
+            query = """
+            DELETE FROM system_prompt
+            WHERE file_path = ?;
+            """
+            cursor = await conn.execute(query, (file_path,))
+            await conn.commit()
+            return cursor.rowcount > 0
+        finally:
+            await conn.close()
+
+    async def get_prompts_by_file_pattern(self, pattern: str) -> list[dict[str, Any]]:
+        """Get prompts by file path pattern.
+
+        Parameters
+        ----------
+        pattern : str
+            The file path pattern to match (uses LIKE operator).
+
+        Returns
+        -------
+        list[dict[str, Any]]
+            List of prompt records matching the pattern.
+        """
+        conn = await aiosqlite.connect(super().DB_NAME)
+        try:
+            query = """
+            SELECT id, prompt, file_path, created_by, created_at,
+                   activated_at, deactivated_at, is_active
+            FROM system_prompt
+            WHERE file_path LIKE ?
+            ORDER BY created_at DESC;
+            """
+            cursor = await conn.execute(query, (pattern,))
+            rows = await cursor.fetchall()
+
+            return [
+                {
+                    "id": row[0],
+                    "prompt": row[1],
+                    "file_path": row[2],
+                    "created_by": row[3],
+                    "created_at": row[4],
+                    "activated_at": row[5],
+                    "deactivated_at": row[6],
+                    "is_active": bool(row[7]),
+                }
+                for row in rows
+            ]
+        finally:
+            await conn.close()
+
+    async def update_file_path(self, old_path: str, new_path: str) -> bool:
+        """Update the file path of a prompt record.
+
+        Parameters
+        ----------
+        old_path : str
+            The current file path to update.
+        new_path : str
+            The new file path.
+
+        Returns
+        -------
+        bool
+            True if the file path was successfully updated, False otherwise.
+        """
+        conn = await aiosqlite.connect(super().DB_NAME)
+        try:
+            query = """
+            UPDATE system_prompt
+            SET file_path = ?
+            WHERE file_path = ?;
+            """
+            cursor = await conn.execute(query, (new_path, old_path))
+            await conn.commit()
+            return cursor.rowcount > 0
+        finally:
+            await conn.close()

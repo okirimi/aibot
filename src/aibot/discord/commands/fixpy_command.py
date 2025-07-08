@@ -9,10 +9,9 @@ from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.infrastructure.api.factory import ApiFactory
 from src.aibot.json import get_text
-from src.aibot.services.provider_manager import ProviderManager
 from src.aibot.services.prompt_manager import get_prompt_manager
+from src.aibot.services.provider_manager import ProviderManager
 from src.aibot.yml import FIXPY_SYSTEM
-
 
 _api_factory = ApiFactory()
 _client: BotClient = BotClient.get_instance()

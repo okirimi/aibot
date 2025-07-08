@@ -1,6 +1,6 @@
 from src.aibot.cli import logger
-from src.aibot.yml import CHAT_SYSTEM_DEFAULT
 from src.aibot.services.system_prompt import SystemPromptService
+from src.aibot.yml import CHAT_SYSTEM_DEFAULT
 
 
 class PromptManager:
@@ -29,11 +29,17 @@ class PromptManager:
             The active system prompt or fallback static prompt.
         """
         try:
+            # Check if force system mode is enabled
+            is_force_enabled = await self.service.is_force_system_enabled()
+            if is_force_enabled:
+                logger.debug("Force system mode enabled, using default system prompt")
+                return self._static_prompts["chat"]
+
             # Try to get dynamic prompt from database
             active_content = await self.service.get_active_prompt_content()
             if active_content:
                 logger.debug("Using dynamic system prompt for chat")
-                return active_content # type: ignore
+                return active_content  # type: ignore
         except Exception as e:
             logger.warning("Failed to get dynamic prompt, using fallback: %s", e)
 
@@ -51,7 +57,7 @@ class PromptManager:
         """
         try:
             active_info = await self.service.get_active_prompt_info()
-            return active_info is not None  # noqa: TRY300
+            return active_info is not None
         except Exception as e:
             logger.warning("Failed to check for active prompt: %s", e)
             return False
@@ -67,5 +73,5 @@ def get_prompt_manager() -> PromptManager:
         The global PromptManager instance.
     """
     if not hasattr(get_prompt_manager, "instance"):
-        get_prompt_manager.instance = PromptManager() # type: ignore
-    return get_prompt_manager.instance # type: ignore
+        get_prompt_manager.instance = PromptManager()  # type: ignore
+    return get_prompt_manager.instance  # type: ignore

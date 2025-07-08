@@ -70,7 +70,13 @@ python -m src.aibot --log ERROR    # Run with error logging
 - `/chat`: Single-turn chat with AI providers
 - `/fixpy`: Python code analysis and debugging assistance
 - `/provider`: Configure AI provider settings (admin only)
-- Access control commands for user management
+- `/system`: Set custom system prompts via modal interface
+- `/systemlist`: Browse and view available system prompts
+- `/reuse`: Reactivate previous system prompts
+- `/resetsystem`: Reset system prompt to default (disabled during force system mode)
+- `/forcesystem`: Force default system instructions (admin only)
+- `/unlocksystem`: Disable force system mode (admin only)
+- `/grant`, `/revoke`, `/check`: User access control commands (admin only)
 
 ### AI Provider Support
 - **Anthropic Claude**: claude-sonnet-4 (default)
@@ -79,18 +85,22 @@ python -m src.aibot --log ERROR    # Run with error logging
 - Dynamic provider switching with per-user preferences
 
 ### System Prompt Management
-- Static prompts for consistent behavior
-- Dynamic prompts stored in database
-- Per-command prompt customization
+- Static prompts for consistent behavior (`resources/system_instructions.yml`)
+- Dynamic prompts stored in database with user-specific customization
+- Modal-based prompt creation with 4000 character limit
+- Force system mode for admin control over prompt customization
+- Per-command prompt customization with activation/deactivation
+- Prompt history and reuse functionality
 - Fallback system for reliability
 
 ## Configuration Requirements
 
 - `.env` file with Discord token, API keys, admin users, authorized servers (see `.env.sample`)
-- `prompts/` directory for system prompts configuration
+- `resources/system_instructions.yml` for default system prompts
 - `locale/translation-*.json` files for multi-language support (EN/JA)
-- Python 3.12 required
+- Python 3.12 required (3.12 < 3.13)
 - SQLite database file for persistence
+- `uv` package manager for dependency management
 
 ## Code Style Standards
 
