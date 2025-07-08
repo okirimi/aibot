@@ -4,7 +4,7 @@
 
 We recommend using uv. macOS users can install it using the following commands:
 
-```
+```bash
 # with curl
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
@@ -17,7 +17,7 @@ brew install uv
 
 Check if uv is available and install Python:
 
-```
+```bash
 # Check if uv is available
 uv --version
 
@@ -27,7 +27,7 @@ uv --version
 uv python install 3.12.10
 ```
 
-For more details, please refer to the [official documentation](https://docs.astral.sh/uv/).
+For more details, please refer to the [uv official documentation](https://docs.astral.sh/uv/).
 
 ## Setup Anthropic API access
 
@@ -35,7 +35,14 @@ Follow the steps below:
 
 - Login to [Console Account](https://console.anthropic.com/login).
 - Get the API keys.
-- Keep this key safe and add it to your `.env` file under the variable `ANTHROPIC_API_KEY`.
+- Store it securely and add it to your `.env` file as the value for `ANTHROPIC_API_KEY`.
+
+
+## Setup Gemini API access
+
+Visit [Google AI Studio](https://aistudio.google.com/prompts/new_chat) to generate an API key.
+Store it securely and add it to your `.env` file as the value for `GEMINI_API_KEY`.
+
 
 ## Setup OpenAI API access
 
@@ -43,7 +50,7 @@ Follow the steps below:
 
 - Create an account on [OpenAI developer platform](https://platform.openai.com/docs/overview).
 - Go to the API keys section of your account settings and generate a new API key.
-- Keep this key safe and add it to your `.env` file under the variable `OPENAI_API_KEY`.
+- Store it securely and add it to your `.env` file as the value for `OPENAI_API_KEY`.
 
 ## Create and invite Discord application
 
