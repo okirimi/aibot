@@ -22,7 +22,7 @@
       "description": "AIプロバイダーを選択します"
     },
     "system": {
-      "description": "/chatで用いるシステムプロンプトを設定します"
+      "description": "/chatで用いるシステム指示を設定します"
     }
   },
   "errors": {
@@ -32,7 +32,7 @@
     "fixpy_command_processing_error": "**ERROR** - fixpyコマンドの処理中にエラーが発生しました",
     "fixpy_modal_execution_error": "**ERROR** - コマンドの実行中にエラーが発生しました",
     "chat_command_processing_error": "**ERROR** - コマンドの処理中にエラーが発生しました",
-    "system_command_processing_error": "**ERROR** - システムプロンプトの処理中にエラーが発生しました"
+    "system_command_processing_error": "**ERROR** - システム指示の処理中にエラーが発生しました"
   },
   "access_control": {
     "guild_only_command": "このコマンドはギルド内でのみ使用できます",
@@ -61,10 +61,10 @@
     "no_provider_set": "AIプロバイダーが設定されていません（デフォルト: openai）"
   },
   "system": {
-    "modal_title": "システムプロンプト設定",
-    "prompt_input_label": "システムプロンプト",
-    "prompt_input_placeholder": "システムプロンプトを入力してください...",
-    "prompt_set": "システムプロンプトが正常に設定されました",
-    "prompt_creation_failed": "システムプロンプトの作成に失敗しました"
+    "modal_title": "システム指示設定",
+    "prompt_input_label": "システム指示",
+    "prompt_input_placeholder": "システム指示を入力してください...",
+    "prompt_set": "システム指示が正常に設定されました",
+    "prompt_creation_failed": "システム指示の作成に失敗しました"
   }
 }
