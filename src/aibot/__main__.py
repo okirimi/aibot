@@ -9,6 +9,7 @@ from src.aibot.discord.client import BotClient
 from src.aibot.discord.commands import *
 from src.aibot.infrastructure.db.dao.access_dao import AccessLevelDAO
 from src.aibot.infrastructure.db.dao.prompt_dao import PromptDAO
+from src.aibot.infrastructure.db.dao.system_config_dao import SystemConfigDAO
 
 
 @contextmanager
@@ -37,10 +38,16 @@ def ignore_signals(signals: list[signal.Signals]) -> Generator[None, None, None]
 
 
 async def main() -> None:
-    """Entry point for the 'SuiseiBot'."""
+    """Entry point for the 'AiBot'."""
     # Initialize database tables
     await AccessLevelDAO().create_table()
     await PromptDAO().create_table()
+    await SystemConfigDAO().create_table()
+
+    # Disable force system mode to allow user system prompt customization
+    system_config_dao = SystemConfigDAO()
+    await system_config_dao.disable_force_system()
+    logger.info("Force system mode disabled - users can now customize system prompts")
 
     # This system environment variable is specific to this function
     DISCORD_BOT_TOKEN: str = os.environ["DISCORD_BOT_TOKEN"]  # noqa: N806
