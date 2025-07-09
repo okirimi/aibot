@@ -4,6 +4,8 @@ import signal
 from collections.abc import Generator
 from contextlib import contextmanager
 
+from dotenv import load_dotenv
+
 from src.aibot.cli import logger
 from src.aibot.discord.client import BotClient
 from src.aibot.discord.commands import *
@@ -49,6 +51,7 @@ async def main() -> None:
     await system_config_dao.disable_force_system()
     logger.info("Force system mode disabled - users can now customize system prompts")
 
+    load_dotenv()
     # This system environment variable is specific to this function
     DISCORD_BOT_TOKEN: str = os.environ["DISCORD_BOT_TOKEN"]  # noqa: N806
 
